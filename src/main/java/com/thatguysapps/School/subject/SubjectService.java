@@ -2,6 +2,8 @@ package com.thatguysapps.School.subject;
 
 import com.thatguysapps.School.student.Student;
 import com.thatguysapps.School.student.StudentRepository;
+import com.thatguysapps.School.teacher.Teacher;
+import com.thatguysapps.School.teacher.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class SubjectService {
 
     @Autowired
     private SubjectRepository subjectRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -29,6 +34,13 @@ public class SubjectService {
     }
 
     public Subject createSubject(Subject subject) {
+        return subjectRepository.save(subject);
+    }
+
+    public Subject addTeacherToSubject(Long subjectId, Long teacherId) {
+        Subject subject = subjectRepository.getById(subjectId);
+        Teacher teacher = teacherRepository.getById(teacherId);
+        subject.assignTeacher(teacher);
         return subjectRepository.save(subject);
     }
 }

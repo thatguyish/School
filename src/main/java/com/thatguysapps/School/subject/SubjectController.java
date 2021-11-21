@@ -27,4 +27,9 @@ public class SubjectController {
         return subjectService.addStudentToSubject(subjectId, studentId);
     }
 
+    @PutMapping("/{subjectId}/teacher/{teacherId}")
+    Subject addTeacherToSubject(@PathVariable Long subjectId, @PathVariable Long teacherId){
+        return subjectService.addTeacherToSubject(subjectId, teacherId);
+    }
+
 }

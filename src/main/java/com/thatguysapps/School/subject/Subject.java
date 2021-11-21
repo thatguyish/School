@@ -1,6 +1,7 @@
 package com.thatguysapps.School.subject;
 
 import com.thatguysapps.School.student.Student;
+import com.thatguysapps.School.teacher.Teacher;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,8 +20,16 @@ public class Subject {
     private Set<Student> enrolledStudents = new HashSet<>();
 
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="teacher_id",referencedColumnName = "id")
+    private Teacher teacher;
+
     public Set<Student> getEnrolledStudents() {
         return enrolledStudents;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
     }
 
     private String name;
@@ -39,5 +48,8 @@ public class Subject {
 
     public void enrollStudent (Student student){
         enrolledStudents.add(student);
+    }
+    public void assignTeacher (Teacher teacher){
+        this.teacher = teacher;
     }
 }
