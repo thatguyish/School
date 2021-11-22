@@ -1,6 +1,7 @@
 package com.thatguysapps.School.student;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thatguysapps.School.subject.Subject;
 
 import javax.persistence.*;
@@ -14,15 +15,16 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonIgnore
+    @JsonIgnoreProperties("enrolledStudents")
     @ManyToMany(mappedBy="enrolledStudents")
     private Set<Subject> subjects = new HashSet<>();
+
+
+    private String name;
 
     public Set<Subject> getSubjects() {
         return subjects;
     }
-
-    private String name;
 
     public long getId() {
         return id;

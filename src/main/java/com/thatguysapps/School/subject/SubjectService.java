@@ -25,7 +25,7 @@ public class SubjectService {
         Subject subject = subjectRepository.getById(subjectId);
         Student student = studentRepository.getById(studentId);
 
-        subject.enrollStudent(student);
+        subject.getEnrolledStudents().add(student);
         return subjectRepository.save(subject);
     }
 

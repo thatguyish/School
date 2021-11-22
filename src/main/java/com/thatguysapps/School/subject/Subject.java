@@ -1,5 +1,7 @@
 package com.thatguysapps.School.subject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.thatguysapps.School.student.Student;
 import com.thatguysapps.School.teacher.Teacher;
 
@@ -14,6 +16,7 @@ public class Subject {
     private long id;
 
     @ManyToMany
+    @JsonIgnoreProperties("subjects")
     @JoinTable(name="student_enrolled",
             joinColumns = @JoinColumn(name="subject_id"),
             inverseJoinColumns = @JoinColumn(name="student_id"))
@@ -24,13 +27,6 @@ public class Subject {
     @JoinColumn(name="teacher_id",referencedColumnName = "id")
     private Teacher teacher;
 
-    public Set<Student> getEnrolledStudents() {
-        return enrolledStudents;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
 
     private String name;
 
@@ -49,7 +45,21 @@ public class Subject {
     public void enrollStudent (Student student){
         enrolledStudents.add(student);
     }
+
     public void assignTeacher (Teacher teacher){
         this.teacher = teacher;
     }
+
+    public Set<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
 }
